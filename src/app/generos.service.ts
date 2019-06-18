@@ -25,16 +25,21 @@ export class GenerosService extends DadosBaseService {
         catchError(this.handleError<any>('lista', []))
       );
   }
-
-  /**
-   * Faz uma requisição GET para a API, com o objetivo de obter os
-   * dados de um gênero (identificado por `id`).
-   * 
-   * @param genero o identificador do gênero 
-   */
+  editar(id, nome) {
+    let formData: FormData = new FormData();
+    formData.append('nome', nome);
+    return this.http.patch(this.URL.concat(`${id}/`), formData);
+  }
   encontrar(id) {
     return this.http.get(this.URL.concat(`${id}/`));
   }
-
-
+  excluir(id) {
+    return this.http.delete(this.URL.concat(`${id}/`));
+  }
+  cadastrar(nome) {
+    let formData: FormData = new FormData();
+    formData.append('nome', nome);
+    return this.http.post(this.URL, formData);
+    }
+    
 }
